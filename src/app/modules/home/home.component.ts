@@ -1,5 +1,10 @@
+import { UserService } from './../../services/user/user.service';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthRequest } from 'src/app/models/interfaces/user/auth/AuthRequest';
+import { SingupUserRequest } from 'src/app/models/interfaces/user/SignupUserRequest';
+import { SingupUserResponse } from 'src/app/models/interfaces/user/SingupUserResponse';
 
 @Component({
   selector: 'app-home',
@@ -14,19 +19,48 @@ export class HomeComponent {
     password: ['', Validators.required]
   });
 
-  signUp = this.formBuilder.group({
-    nome: ['', Validators.required],
+  signupForm = this.formBuilder.group({
+    name: ['', Validators.required],
     email: ['', Validators.required],
     password: ['', Validators.required]
   });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private cookieService: CookieService
+  ) { }
 
   onSubmitLoginForm(): void {
-    console.log('lOGADO COM SUCESSO', this.loginForm.value);
+    if (this.loginForm.value && this.loginForm.valid) {
+      this.userService.authUser(this.loginForm.value as AuthRequest)
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            this.cookieService.set('USER_INFO', response?.token);
+            alert('Usua´rio logado com sucesso')
+            this.loginForm.reset();
+          }
+        },
+        error: (err) => console.log(err),
+      })
+    }
   }
 
-  createAcountLoginForm(): void {
-    console.log('create acount sucessful', this.signUp.value);
+  onSubmitSignupForm(): void {
+    if (this.signupForm.value && this.signupForm.valid) {
+      this.userService
+      .signupUser(this.signupForm.value as SingupUserRequest)
+        .subscribe({
+          next: (response) => {
+            if (response) {
+              alert("Usuário criado com sucesso");
+              this.signupForm.reset();
+              this.loginCard = true;
+            }
+          },
+          error: (err) => console.log(err),
+        });
+    }
   }
 }

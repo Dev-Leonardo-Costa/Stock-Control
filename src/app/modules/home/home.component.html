@@ -22,10 +22,10 @@
       </form>
 
       <!-- SIGNUP -->
-      <form [formGroup]="signUp" (ngSubmit)="createAcountLoginForm()">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmitSignupForm()">
         <p-card styleClass="mt-10" header="Criar Conta" subheader="Crie já sua conta gratuita!" *ngIf="!loginCard">
           <div class="flex justify-content-center align-content-center text-align-center">
-            <input type="text" pInputText placeholder="Nome" formControlName="nome">
+            <input type="text" pInputText placeholder="Nome" formControlName="name">
           </div>
           <div class="flex justify-content-center align-content-center text-align-center m-3">
             <input type="email" pInputText placeholder="Email" formControlName="email">
@@ -34,7 +34,7 @@
             <input type="password" pInputText placeholder="Senha" formControlName="password">
           </div>
           <div class="card flex justify-content-center m-3">
-            <button type="submit" pButton pRipple label="Criar Conta" [disabled]="!this.signUp.valid"></button>
+            <button type="submit" pButton pRipple label="Criar Conta" [disabled]="!this.signupForm.valid"></button>
           </div>
           <span class="flex justify-content-center align-content-center m-3 text-red-600 font-semibold cursor-pointer"
             (click)="loginCard = !loginCard">

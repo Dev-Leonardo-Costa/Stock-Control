@@ -10,29 +10,25 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 
-
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './modules/home/home.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent
-  ],
+  declarations: [AppComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
-
     //PrimeNg
     CardModule,
     InputTextModule,
     ButtonModule,
     ToastModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
