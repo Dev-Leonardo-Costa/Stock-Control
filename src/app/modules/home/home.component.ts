@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { UserService } from './../../services/user/user.service';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -28,38 +29,65 @@ export class HomeComponent {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private messageService: MessageService
   ) { }
 
   onSubmitLoginForm(): void {
     if (this.loginForm.value && this.loginForm.valid) {
       this.userService.authUser(this.loginForm.value as AuthRequest)
-      .subscribe({
-        next: (response) => {
-          if (response) {
-            this.cookieService.set('USER_INFO', response?.token);
-            alert('Usua´rio logado com sucesso')
-            this.loginForm.reset();
-          }
-        },
-        error: (err) => console.log(err),
-      })
+        .subscribe({
+          next: (response) => {
+            if (response) {
+              this.cookieService.set('USER_INFO', response?.token);
+              this.loginForm.reset();
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: `Bem vindo de volta ${response.name}`,
+                life: 3000,
+              });
+            }
+          },
+          error: (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: `Error ao fazer login!`,
+              life: 3000,
+            });
+            console.log(err);
+          },
+        })
     }
   }
 
   onSubmitSignupForm(): void {
     if (this.signupForm.value && this.signupForm.valid) {
       this.userService
-      .signupUser(this.signupForm.value as SingupUserRequest)
+        .signupUser(this.signupForm.value as SingupUserRequest)
         .subscribe({
           next: (response) => {
             if (response) {
-              alert("Usuário criado com sucesso");
               this.signupForm.reset();
               this.loginCard = true;
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: `Usuário Criado com sucesso!`,
+                life: 3000,
+              });
             }
           },
-          error: (err) => console.log(err),
+          error: (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: `Error ao Criar Usuário!`,
+              life: 3000,
+            });
+            console.log(err);
+          },
         });
     }
   }
