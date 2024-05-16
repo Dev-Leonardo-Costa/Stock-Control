@@ -35,8 +35,7 @@ export class HomeComponent {
 
   onSubmitLoginForm(): void {
     if (this.loginForm.value && this.loginForm.valid) {
-      this.userService.authUser(this.loginForm.value as AuthRequest)
-        .subscribe({
+      this.userService.authUser(this.loginForm.value as AuthRequest).subscribe({
           next: (response) => {
             if (response) {
               this.cookieService.set('USER_INFO', response?.token);
