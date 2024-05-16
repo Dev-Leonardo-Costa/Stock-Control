@@ -14,6 +14,7 @@ import { ButtonModule }   from 'primeng/button';
 import { ToolbarModule }  from 'primeng/toolbar'
 import { CardModule }     from 'primeng/card';
 import { ToastModule }    from 'primeng/toast';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,6 @@ import { ToastModule }    from 'primeng/toast';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(DASHBOARD_ROUTES),
-
     // PrimeNG
     SidebarModule,
     ButtonModule,
@@ -32,6 +32,8 @@ import { ToastModule }    from 'primeng/toast';
     CardModule,
     ToastModule,
     ChartModule,
+    //Shared
+    SharedModule,
   ],
   providers: [CookieService, MessageService]
 })
