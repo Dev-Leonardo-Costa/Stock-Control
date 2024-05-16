@@ -1,17 +1,19 @@
-import { NgModule } from '@angular/core';
+import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DashboardHomeComponent } from './page/dashboard-home/dashboard-home.component';
 import { RouterModule } from '@angular/router';
-import { DASHBOARD_ROUTES } from './dashboard.routing';
-import { SidebarModule } from 'primeng/sidebar';
-import { ButtonModule } from 'primeng/button';
-import { ToolbarModule } from 'primeng/toolbar'
-import { CardModule } from 'primeng/card';
-import { ToastModule } from 'primeng/toast';
-import { CookieService } from 'ngx-cookie-service';
-import { MessageService } from 'primeng/api';
 
+import { DashboardHomeComponent } from './page/dashboard-home/dashboard-home.component';
+import { DASHBOARD_ROUTES }       from './dashboard.routing';
+
+import { CookieService }  from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
+import { ChartModule }    from 'primeng/chart';
+import { SidebarModule }  from 'primeng/sidebar';
+import { ButtonModule }   from 'primeng/button';
+import { ToolbarModule }  from 'primeng/toolbar'
+import { CardModule }     from 'primeng/card';
+import { ToastModule }    from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     ToolbarModule,
     CardModule,
-    ToastModule
+    ToastModule,
+    ChartModule,
   ],
   providers: [CookieService, MessageService]
 })
