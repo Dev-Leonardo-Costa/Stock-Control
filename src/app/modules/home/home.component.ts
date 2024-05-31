@@ -5,8 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthRequest } from 'src/app/models/interfaces/user/auth/AuthRequest';
 import { SingupUserRequest } from 'src/app/models/interfaces/user/SignupUserRequest';
-import { SingupUserResponse } from 'src/app/models/interfaces/user/SingupUserResponse';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -30,7 +29,8 @@ export class HomeComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private cookieService: CookieService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router,
   ) { }
 
   onSubmitLoginForm(): void {
@@ -40,6 +40,9 @@ export class HomeComponent {
             if (response) {
               this.cookieService.set('USER_INFO', response?.token);
               this.loginForm.reset();
+
+              this.router.navigate(['/dashboard']);
+
               this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
