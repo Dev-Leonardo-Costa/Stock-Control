@@ -37,7 +37,7 @@
               "node_modules/primeflex/primeflex.scss"
             ],
             "scripts": [
-              "../node_modules/chartjs.js/dist/chartjs.js"
+              "node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {
